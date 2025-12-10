@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>...</title>
+<title></title>
+
 <style>
     html, body {
         margin: 0;
@@ -19,8 +20,12 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: white;
-        font-family: Arial, sans-serif;
-        font-size: 48px;
+
+        /* Times New Roman */
+        font-family: "Times New Roman", Times, serif;
+
+        font-size: 50px;
+        font-weight: normal;
         user-select: none;
         opacity: 0.9;
         animation: softFlicker 3s infinite;
@@ -41,14 +46,16 @@
         display: none;
         width: 100vw;
         height: 100vh;
-        object-fit: cover;
+        object-fit: contain;
+        background: black;
     }
 </style>
 </head>
+
 <body>
 
 <div id="clickText">Click Me</div>
-<video id="video" src="video.mp4"></video>
+<video id="video" src="video.mp4" preload="auto" muted></video>
 
 <script>
 document.addEventListener("mousedown", function(e) {
@@ -62,6 +69,7 @@ document.addEventListener("mousedown", function(e) {
         v.muted = false;
         v.play();
     }, 1000);
+
 }, { once: true });
 </script>
 
