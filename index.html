@@ -2,16 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>.</title>
 
 <style>
     html, body {
         margin: 0;
         padding: 0;
-        background: black;
+        width: 100%;
         height: 100%;
+        background: black;
         overflow: hidden;
         cursor: none;
+        font-family: "Times New Roman", serif;
+        user-select: none;
     }
 
     #clickText {
@@ -20,15 +23,10 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: white;
-
-        /* Times New Roman */
-        font-family: "Times New Roman", Times, serif;
-
-        font-size: 50px;
-        font-weight: normal;
-        user-select: none;
+        font-size: 42px;
         opacity: 0.9;
-        animation: softFlicker 3s infinite;
+        pointer-events: none;
+        animation: softFlicker 2.5s infinite;
     }
 
     @keyframes softFlicker {
@@ -42,35 +40,43 @@
         100% { opacity:0.90; }
     }
 
+    /* FIXED-SIZE VIDEO */
     #video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;     /* ← adjust this if needed */
+        height: auto;
         display: none;
-        width: 100vw;
-        height: 100vh;
-        object-fit: contain;
-        background: black;
     }
 </style>
-</head>
 
+</head>
 <body>
 
 <div id="clickText">Click Me</div>
-<video id="video" src="video.mp4" preload="auto" muted></video>
+
+<video id="video" muted preload="auto">
+    <source src="video.mp4" type="video/mp4">
+</video>
 
 <script>
-document.addEventListener("mousedown", function(e) {
-    if (e.button !== 0) return;
+    let clicked = false;
 
-    document.getElementById("clickText").style.display = "none";
+    document.addEventListener("click", function (e) {
+        if (e.button !== 0) return; // left-click only
+        if (clicked) return;
+        clicked = true;
 
-    setTimeout(function() {
-        const v = document.getElementById("video");
-        v.style.display = "block";
-        v.muted = false;
-        v.play();
-    }, 1000);
+        document.getElementById("clickText").style.display = "none";
 
-}, { once: true });
+        setTimeout(() => {
+            const vid = document.getElementById("video");
+            vid.style.display = "block";
+            vid.play().catch(()=>{});
+        }, 1000);
+    });
 </script>
 
 </body>
