@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    body {
+        margin: 0;
+        background:#000;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    #startText {
+        color:#fff;
+        font-size:3rem;
+        font-weight:700;
+        opacity:0.9;
+        animation: softFlicker 3s infinite;
+    }
+
+    @keyframes softFlicker {
+        0%   { opacity:0.90; }
+        12%  { opacity:0.78; }
+        25%  { opacity:0.92; }
+        38%  { opacity:0.70; }
+        52%  { opacity:0.88; }
+        67%  { opacity:0.73; }
+        84%  { opacity:0.95; }
+        100% { opacity:0.90; }
+    }
+
+    video {
+        display:none;
+        max-width:100%;
+        max-height:100%;
+    }
+</style>
+</head>
+<body>
+
+<div id="startText">Click Me</div>
+<video id="vid" src="video.mp4" playsinline loop></video>
+
+<script>
+document.addEventListener("mousedown", e => {
+    if (e.button !== 0) return;
+
+    const t = document.getElementById("startText");
+    const v = document.getElementById("vid");
+
+    t.style.display = "none";
+
+    setTimeout(() => {
+        v.style.display = "block";
+        v.muted = false;
+        v.play();
+    }, 1000); // 1 second delay
+});
+</script>
+
+</body>
+</html>
+
